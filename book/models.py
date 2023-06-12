@@ -13,7 +13,7 @@ class Resident(BaseModel):
     name = models.CharField(max_length=50)
 
 
-class Booked(BaseModel):
+class Book(BaseModel):
     resident = models.ForeignKey(Resident, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateTimeField()

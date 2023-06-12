@@ -9,7 +9,7 @@ from .models import Room
 from .serializers import RoomSerializer
 
 class RoomCreateAPIView(GenericAPIView):
-    """ API xona yaratish uchun"""
+    """ API to create room """
 
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -23,7 +23,7 @@ class RoomCreateAPIView(GenericAPIView):
             return Response(
                         {
                             "success":True, 
-                            "message": "Xona muvofaqiyatli yaratildi!",
+                            "message": "Room has been created successfully!",
                             "result": serializer.data
                         },
                         status=status.HTTP_201_CREATED
@@ -32,14 +32,14 @@ class RoomCreateAPIView(GenericAPIView):
         return Response(
                     {
                         "success":False, 
-                        "error": "Xona yaratishda xatolik!"
+                        "error": "Error in creating room!"
                     },
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
 
 class RoomDetailAPIView(RetrieveAPIView):
-    """API xonalarni id orqali olish"""
+    """ API to get rooms by id """
 
     queryset = Room
     serializer_class = RoomSerializer
@@ -55,14 +55,14 @@ class RoomDetailAPIView(RetrieveAPIView):
             return Response(
                 {
                     "success": False,
-                    "error": "Topilmadi"
+                    "error": "NOT FOUND"
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
 
 
 class RoomAPIView(ListAPIView):
-    """API xonalarni nomi orqali qidirish, turi bo'yicha saralash uchun"""
+    """ API to search rooms by name, filter by type """
 
     queryset = Room.objects.all()
     serializer_class = RoomSerializer

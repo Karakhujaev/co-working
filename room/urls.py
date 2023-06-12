@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import RoomCreateAPIView, RoomDetailAPIView, RoomAPIView
 
-app_name = 'your_app_name'
+app_name = 'room'
 
 urlpatterns = [
     path('rooms/', RoomAPIView.as_view(), name='room-list'),

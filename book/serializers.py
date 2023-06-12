@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from room.serializers import RoomSerializer
-from .models import Resident, Booked, Room
+from .models import Resident, Book, Room
 
 
 class ResidentSerailizer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class BookedSerializer(serializers.ModelSerializer):
     room = serializers.PrimaryKeyRelatedField(queryset=Room.objects.all())
 
     class Meta:
-        model = Booked
+        model = Book
         fields = ['id', 'resident', 'room', 'check_in', 'check_out']
 
 
@@ -24,6 +24,7 @@ class BookedDetailSerializer(serializers.ModelSerializer):
     room = RoomSerializer(read_only=True)
 
     class Meta:
-        model = Booked
+        model = Book
         fields = ['id', 'resident', 'room', 'check_in', 'check_out', 'created_at']
+
 
