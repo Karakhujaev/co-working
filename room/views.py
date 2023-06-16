@@ -39,60 +39,36 @@ class RoomCreateAPIView(GenericAPIView):
 
 
 class RoomDetailAPIView(RetrieveAPIView):
-    """ API to get rooms by id """
+    """ API to get room by id """
 
     queryset = Room
     serializer_class = RoomSerializer
-
-    def retrieve(self, request, pk):
-        try:
-            room = self.get_object()
-            serializer = self.get_serializer(room)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-        except ObjectDoesNotExist:
-
-            return Response(
-                {
-                    "success": False,
-                    "error": "NOT FOUND"
-                },
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-
 class RoomAPIView(ListAPIView):
-    """ API to search rooms by name, filter by type """
+    """API to search rooms by name, filter by type"""
 
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['name']
     ordering_fields = ['type']
-
-    class Pagination(PageNumberPagination):
-        page_size_query_param = 'page_size'
-        max_page_size = 10
-
-    pagination_class = Pagination
+    pagination_class = PageNumberPagination
+    page_size_query_param = 'page_size'
+    max_page_size = 10
 
     def list(self, request):
         queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
 
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+        page_size = int(request.query_params.get('page_size', self.pagination_class.page_size))
+        paginator = self.pagination_class()
+        paginated_queryset = paginator.paginate_queryset(queryset, request)
+        serializer = self.get_serializer(paginated_queryset, many=True)
 
-        serializer = self.get_serializer(queryset, many=True)
-
-        response_data = {
-            'page': self.request.query_params.get('page', 1),
-            'count': len(queryset),
-            'page_size': int(self.request.query_params.get('page_size', self.pagination_class.page_size or 10)),
+        return Response({
+            'page': paginator.page.number if paginator.page is not None else 1,
+            'count': paginator.page.paginator.count if paginator.page is not None else 0,
+            'page_size': page_size,
             'results': serializer.data
-        }
-        return Response(response_data, status=status.HTTP_200_OK)
+        })
 
     def get_queryset(self):
         queryset = super().get_queryset()

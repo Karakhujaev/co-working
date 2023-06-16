@@ -6,6 +6,6 @@ app_name = 'room'
 urlpatterns = [
     path('rooms/', RoomAPIView.as_view(), name='room-list'),
     path('room/create/', RoomCreateAPIView.as_view(), name='room-create'),
-    path('room/<int:pk>/', RoomDetailAPIView.as_view(), name='room-detail'),
+    path('rooms/<int:pk>/', RoomDetailAPIView.as_view(), name='room-detail'),
 ]
 
