@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-l7!))anki30m=%&gye-^y3^kb5ot73fo$)s8j_(o@z=2&1iuvb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['karakhujayev.jprq.live', '127.0.0.1']
 
 
 # Application definition
@@ -68,7 +68,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
 }
-# Django project settings.py
+
 
 from datetime import timedelta
 
@@ -166,6 +166,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -177,6 +179,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)

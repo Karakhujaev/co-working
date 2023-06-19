@@ -4,6 +4,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView, GenericAPIView, RetrieveAPIView
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.views import APIView
+
 
 from .models import Room
 from .serializers import RoomSerializer
@@ -38,11 +40,20 @@ class RoomCreateAPIView(GenericAPIView):
                 )
 
 
-class RoomDetailAPIView(RetrieveAPIView):
-    """ API to get room by id """
 
-    queryset = Room
-    serializer_class = RoomSerializer
+class RoomDetailAPIView(APIView):
+    """ API to get a room by ID """
+
+    def get(self, request, pk):
+        try:
+            room = Room.objects.get(id=pk)
+            serializer = RoomSerializer(room)
+            return Response(serializer.data)
+        except Room.DoesNotExist:
+            return Response({"error": "topilmadi"}, status=404)
+
+
+
 class RoomAPIView(ListAPIView):
     """API to search rooms by name, filter by type"""
 
