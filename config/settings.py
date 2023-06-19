@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-l7!))anki30m=%&gye-^y3^kb5ot73fo$)s8j_(o@z=2&1iuvb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['karakhujayev.jprq.live', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -174,7 +174,7 @@ DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 

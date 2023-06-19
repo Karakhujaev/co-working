@@ -2,13 +2,13 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.generics import ListAPIView, GenericAPIView, RetrieveAPIView
-from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework.views import APIView
 
 
 from .models import Room
 from .serializers import RoomSerializer
+
 
 class RoomCreateAPIView(GenericAPIView):
     """ API to create room """
@@ -25,7 +25,7 @@ class RoomCreateAPIView(GenericAPIView):
             return Response(
                         {
                             "success":True, 
-                            "message": "Room has been created successfully!",
+                            "message": "Xona muvaffaqiyatli yaratildi!",
                             "result": serializer.data
                         },
                         status=status.HTTP_201_CREATED
